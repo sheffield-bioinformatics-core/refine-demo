@@ -4,7 +4,7 @@
 
 # Open refine demo
 
-(adapted from [Data Carpentry materials](http://lgatto.github.io/OpenRefine-ecology/00-getting-started.html) by @lgatto)
+(for more detail see [Data Carpentry materials](http://www.datacarpentry.org/OpenRefine-ecology-lesson/))
 
 Open Refine (previously Google Refine) is an open-source tool that can help you to clean-up messy datasets. It presents itself as a spreadsheet-like interface, but all operations we do to the data are recorded and can be repeated or reversed. We will show how it can be used to solve some of the issues we have highlighted previously. You can use Open Refine to build-up a data-cleaning pipeline which you can apply to multiple files. We will not go that far today though. There are some nice introductory videos
 
@@ -13,6 +13,10 @@ Open Refine (previously Google Refine) is an open-source tool that can help you 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cO8NVCs_Ba0" frameborder="0" allowfullscreen></iframe>
 
 Open Refine runs in a web browser, although you do not have to be online to use it.
+
+## Downloading and installation
+
+OpenRefine 2.7 can be [downloaded](http://openrefine.org/download.html) and installed for various operating systems
 
 ## Some example data
 
