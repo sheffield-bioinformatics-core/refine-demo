@@ -43,50 +43,39 @@ If all looks well, click ***Create Project***.
 
 *Faceting* provides you a snapshot of the entries in a particular column and allows you to filter down to particular rows. It can also quickly highlight problems with the data.
 
-Typically, you create a facet on a particular column. The facet summarizes the cells in that column to give you a big picture on that column, and allows you to filter to some subset of rows for which their cells in that column satisfy some constraint. That’s a bit abstract, so let’s jump into some examples. Before we start, ***how many different entries would we expect to find a column that is supposed to be just `Male` or `Female`?***
+Typically, you create a facet on a particular column. The facet summarizes the cells in that column to give you a big picture on that column, and allows you to filter to some subset of rows for which their cells in that column satisfy some constraint. That’s a bit abstract, so let’s jump into some examples. Before we start, ***how many different entries would we expect to find a column that is supposed to denote whether somebody smokes or not`?***
 
 
-- Scroll over to the `Sex` column
+- Scroll over to the `Smokes` column
 - Click the down arrow and choose ***Facet*** -> ***Text facet***
-- In the left margin, you’ll see a box containing every unique, distinct value in the `Sex` column and Refine shows you how many times that value occurs in the column (a count), and allows you to sort (order) your facets by name or count.
+- In the left margin, you’ll see a box containing every unique, distinct value in the `Smokes` column and Refine shows you how many times that value occurs in the column (a count), and allows you to sort (order) your facets by name or count.
 
-In this case, we have found ***6*** different ways for Male or Female to be entered. 
+In this case, we have found many different ways for the smoking status to be recorded. 
 
 
 Edit. Note that at any time, in any cell of the Facet box, or data cell in the Refine window, you have access to edit and can fix an error immediately. Refine will even ask you if you’d like to make that same correction to every value it finds like that one (or not).
 
 ## Trimming whitespace
 
-*Whitespace* is when we have a blank space at the beginning, or end, of a text entry. They can be difficult to spot by-eye and for the computer ` Male` and `Male` are completely distinct entries. This can have undesired consequences in a data analysis.
+*Whitespace* is when we have a blank space at the beginning, or end, of a text entry. They can be difficult to spot by-eye and for the computer `Yes` and `Yes ` are completely distinct entries. This can have undesired consequences in a data analysis.
 
 ![](images/boxplot-from-raw.png)
 
 Fortunately, Open Refine has a straightforward solution to this problem
 
-- Select the `Sex` column
+- Select the `Smokes` column
 - Select ***Edit cells***
 - ***Common transforms*** -> ***Trim trailing and leading whitespace***
 
-Now try the text facet operation from above. What do you notice?
 
 ## Clustering
 
-*Clustering* in Open Refine is used to identify and consolidate similar entries into a consistent term. Let's try this on the `Pet` column. The first thing we will notice is that `Cat` and `CAT` are distinct entries but probably shouldn't be. We can fix that by clustering
+Staying with the `Smokes` column, there is also an inconsistent way of representing missing data; with `Yes` or `TRUE` used. Languages such as R would prefer `TRUE` to be used, although in practice we can use any as long as we are consistent.
 
-- Select the `Pet` colum
-- ***Facet*** -> ***Text Facet*** as before
-- Now, click the ***cluster*** button in the top-right of the panel that shows you all the different values in this column.
-- It will now suggest various groups of entries that it thinks represent the same thing. You can click the checkbox to merge into a single group and have the ability to choose the new name.
-- Clicking ***Merge Selected and Close*** will perform the operation
-
-## Bulk-editing
-
-Staying with the `Pet` column, there is also an inconsistent way of representing missing data; with `NA`, `None` or `NULL` used. Languages such as R would prefer `NA` to be used, although in practice we can use any as long as we are consistent.
-
-- Click on `None` in the Facet panel. Only rows where the value of `Pet` is `None` will be shown.
-- Click on the ***edit*** box `None` value in any particular row. This will give you the chance to edit the value.
-- Change the value to `NA`. Clicking ***Apply to all identical cells*** will change all occurences of `None` to `NA`.
-- You could also try changing `NULL`...
+- Click on `No` in the Facet panel. Only rows where the value of `Smokes` is `No` will be shown.
+- Click on the ***edit*** box `No` value in any particular row. This will give you the chance to edit the value.
+- Change the value to `FALSE`. Clicking ***Apply to all identical cells*** will change all occurences of `No` to `FALSE`.
+- You could also try changing `Yes` to `TRUE`...
 
 ## Splitting into several columns
 
@@ -128,7 +117,6 @@ The `Height` and `Weight` columns are problematic because they contain the units
 ## Things to try
 
 - Can you split the `Birth` column into Year, Month and Day?
-- Can you make the `Smokes` column suitable for analysis?
 - Tidy up the `Weight` column for analysis
 - The `Race` column contains one value that is very suspicious...Can you find it and change it to something suitable?
 - Look at the `State` column and try faceting / clustering?. Are there any entries that should be joined into one? You may need to experiment with different clustering methods.
@@ -148,7 +136,7 @@ Lets suppose we want to look at the difference in weight between males and femal
 ## After cleaning
 ```
 patients <- read.delim("patient-data-cleaned.tsv")
-boxplot(patients$Weight ~patients$Sex)
+boxplot(patients$Weight ~patients$Smokes)
 ```
 ![](images/boxplot-from-clean.png)
 
@@ -158,7 +146,10 @@ boxplot(patients$Weight ~patients$Sex)
 library(stringr)
 patients <- read.delim("patient-data.txt")
 patients$Weight <- as.numeric(str_replace_all(patients$Weight, "kg",""))
-patients$Sex <- str_trim(patients$Sex)
-boxplot(patients$Weight ~patients$Sex)
+patients$Smokes <- str_trim(patients$Smokes)
+patients$Smokes <- gsub("Yes","TRUE",patients$Smokes)
+patients$Smokes <- as.logical(gsub("No","FALSE",patients$Smokes))
+
+boxplot(patients$Weight ~patients$Smokes)
 ```
 
