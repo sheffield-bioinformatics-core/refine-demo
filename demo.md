@@ -16,7 +16,7 @@ Open Refine runs in a web browser, although you do not have to be online to use 
 
 ## Downloading and installation
 
-OpenRefine 2.7 can be [downloaded](http://openrefine.org/download.html) and installed for various operating systems
+OpenRefine 2.8 can be [downloaded](http://openrefine.org/download.html) and installed for various operating systems
 
 ## Some example data
 
