@@ -16,11 +16,11 @@ Open Refine runs in a web browser, although you do not have to be online to use 
 
 ## Downloading and installation
 
-OpenRefine 2.8 can be [downloaded](http://openrefine.org/download.html) and installed for various operating systems
+OpenRefine 3.4.1 can be [downloaded](http://openrefine.org/download.html) and installed for various operating systems
 
 ## Some example data
 
-We will use some data that have been simulated to demonstrate many of the problems we have seen already. Each row represents a different patient in a fictitious study and can be downloaded from the [course website](https://github.com/sheffield-bioinformatics-core/data-formatting/raw/master/patient-data.xlsx). (Right-click and `Save Link as....`) 
+We will use some data that have been simulated to demonstrate many of the problems we have seen already. Each row represents a different patient in a fictitious study and can be downloaded from the [course website](patient-data.xlsx). (Right-click and `Save Link as....`) 
 
 ## Importing the data
 
